@@ -1,0 +1,497 @@
+from builtins import range, open, float
+from collections import Counter
+import operator
+from symbol import continue_stmt
+from tkinter import *
+import random
+import math
+import numpy as np
+from flask import Flask
+from flask import render_template, flash, request
+
+file1 = open("1.txt", "w+")
+file2 = open("2.txt", "w+")
+file3 = open("3.txt", "w+")
+file4 = open("4.txt", "w+")
+file5 = open("5.txt", "w+")
+
+characters = 'ABCDE12345'
+
+for i in range(7): file1.write(random.choice(characters) + " ")
+for i in range(8): file2.write(random.choice(characters) + " ")
+for i in range(9): file3.write(random.choice(characters) + " ")
+for i in range(8): file4.write(random.choice(characters) + " ")
+for i in range(10): file5.write(random.choice(characters) + " ")
+
+file1.close()
+file2.close()
+file3.close()
+file4.close()
+file5.close()
+
+########################################
+app= Flask (__name__)
+
+@app.route('/')
+def index():
+    return render_template("index2.html")
+
+@app.route('/', methods=['GET','POST'])
+def getstring ():
+    if request.method == 'POST':
+
+        rfile1 = open("1.txt")
+        rfile2 = open("2.txt")
+        rfile3 = open("3.txt")
+        rfile4 = open("4.txt")
+        rfile5 = open("5.txt")
+
+        wordcount0 = {}  # FOR STRING
+        wordcount1 = {}
+        wordcount2 = {}
+        wordcount3 = {}
+        wordcount4 = {}
+        wordcount5 = {}
+
+        string =request.form['text1']
+
+        #string
+        for word in string:
+            if word not in wordcount0: wordcount0[word] = 1
+            else : wordcount0[word] += 1
+        len_wordcount0 =len(wordcount0)
+        try:
+            maxf0 =sorted(wordcount0.values())[len_wordcount0-1]
+        except Exception:maxf0=0
+        d1keys=list(wordcount0.keys())
+        d1values=list(wordcount0.values())
+
+        for i in range (len(wordcount0)):
+            try:
+                d1values[i]=d1values[i]/maxf0
+            except Exception:d1values[i]=0
+        tfd1_dic=dict(zip(d1keys, d1values))
+
+
+        #document 1
+        for word in rfile1.read().split():
+            if word == 'A' or word == 'B' or word == 'C' or word == 'D' or word == 'E':
+                if word not in wordcount1 : wordcount1[word] = 1
+                else : wordcount1[word] += 1
+        len_wordcount1 =len(wordcount1)
+        try:
+            maxf1 =sorted(wordcount1.values())[len_wordcount1-1]
+        except Exception: maxf1 = 0
+
+        d2keys=list(wordcount1.keys())
+        d2values=list(wordcount1.values())
+
+        for i in range (len(wordcount1)):
+            try:
+                d2values[i]=d2values[i]/maxf1
+            except Exception:
+                d2values[i] = 0
+        tfd2_dic=dict(zip(d2keys, d2values))
+
+
+        #document 2
+        for word in rfile2.read().split():
+            if word == 'A' or word == 'B' or word == 'C' or word == 'D' or word == 'E':
+                if word not in wordcount2 : wordcount2[word] = 1
+                else : wordcount2[word] += 1
+        len_wordcount2 =len(wordcount2)
+        try:
+            maxf2 =sorted(wordcount2.values())[len_wordcount2-1]
+        except Exception:
+            maxf2 = 0
+        d3keys=list(wordcount2.keys())
+        d3values=list(wordcount2.values())
+
+        for i in range (len(wordcount2)):
+            try:
+                d3values[i]=d3values[i]/maxf2
+            except Exception:
+                d3values[i] = 0
+        tfd3_dic=dict(zip(d3keys, d3values))
+
+
+
+        #document 3
+        for word in rfile3.read().split():
+            if word == 'A' or word == 'B' or word == 'C' or word == 'D' or word == 'E':
+                if word not in wordcount3 : wordcount3[word] = 1
+                else : wordcount3[word] += 1
+
+        len_wordcount3 =len(wordcount3)
+        try:
+            maxf3 =sorted(wordcount3.values())[len_wordcount3-1]
+        except Exception:
+            maxf3 = 0
+
+        d4keys=list(wordcount3.keys())
+        d4values=list(wordcount3.values())
+
+        for i in range (len(wordcount3)):
+            try:
+                d4values[i]=d4values[i]/maxf3
+            except Exception:
+                d4values[i] = 0
+        tfd4_dic=dict(zip(d4keys, d4values))
+
+
+
+        #document 4
+        for word in rfile4.read().split():
+            if word == 'A' or word == 'B' or word == 'C' or word == 'D' or word == 'E':
+                if word not in wordcount4 : wordcount4[word] = 1
+                else : wordcount4[word] += 1
+
+        len_wordcount4 =len(wordcount4)
+        try:
+            maxf4 =sorted(wordcount4.values())[len_wordcount4-1]
+        except Exception:
+            maxf4 = 0
+
+        d5keys=list(wordcount4.keys())
+        d5values=list(wordcount4.values())
+
+        for i in range (len(wordcount4)):
+            try:
+                d5values[i]=d5values[i]/maxf4
+            except Exception:
+                d5values[i] = 0
+        tfd5_dic=dict(zip(d5keys, d5values))
+
+
+        #document 5
+        for word in rfile5.read().split():
+            if word == 'A' or word == 'B' or word == 'C' or word == 'D' or word == 'E':
+                if word not in wordcount5 : wordcount5[word] = 1
+                else : wordcount5[word] += 1
+        len_wordcount5 =len(wordcount5)
+        try:
+            maxf5 =sorted(wordcount5.values())[len_wordcount5-1]
+        except Exception:
+            maxf5 = 0
+        d6keys=list(wordcount5.keys())
+        d6values=list(wordcount5.values())
+
+        for i in range (len(wordcount5)):
+            try:
+                d6values[i]=d6values[i]/maxf5
+            except Exception:
+                d6values[i] = 0
+        tfd6_dic=dict(zip(d6keys, d6values))
+
+        ############################ df
+
+        list_df={}
+        letter_list=['A','B','C','D','E']
+
+        for letter in letter_list :
+            list_df[letter]=0
+
+            if letter in wordcount0 :list_df[letter] += 1
+            if letter in wordcount1 :list_df[letter] += 1
+            if letter in wordcount2 :list_df[letter] += 1
+            if letter in wordcount3 :list_df[letter] += 1
+            if letter in wordcount4 :list_df[letter] += 1
+            if letter in wordcount5 :list_df[letter] += 1
+
+
+        ############## idf
+
+        df_keys=list(list_df.keys())
+        df_values=list(list_df.values())
+
+        for i in range (len(df_values)) :
+            try:
+                df_values[i] = math.log2(6 / df_values[i])
+            except Exception:
+                df_values[i] = 0
+        idf_dic=dict(zip(df_keys, df_values))
+
+        ###################### weight =tf*idf
+
+        weight_d0={}
+        weight_d1={}
+        weight_d2={}
+        weight_d3={}
+        weight_d4={}
+        weight_d5={}
+
+        for i in idf_dic:
+            if i in tfd1_dic: weight_d0[i] = tfd1_dic[i] * idf_dic[i]
+            else:weight_d0[i] = 0
+
+        for i in idf_dic:
+            if i in tfd2_dic: weight_d1[i] = tfd2_dic[i] * idf_dic[i]
+            else:weight_d1[i] = 0
+
+        for i in idf_dic:
+            if i in tfd3_dic: weight_d2[i] = tfd3_dic[i] * idf_dic[i]
+            else:weight_d2[i] = 0
+
+        for i in idf_dic:
+            if i in tfd4_dic: weight_d3[i] = tfd4_dic[i] * idf_dic[i]
+            else:weight_d3[i] = 0
+
+        for i in idf_dic:
+            if i in tfd5_dic: weight_d4[i] = tfd5_dic[i] * idf_dic[i]
+            else:weight_d4[i] = 0
+
+        for i in idf_dic:
+            if i in tfd6_dic: weight_d5[i] = tfd6_dic[i] * idf_dic[i]
+            else:weight_d5[i] = 0
+
+
+        #################### cosine rule
+
+        list_weight_d0=list(weight_d0.values())
+        list_weight_d1=list(weight_d1.values())
+        list_weight_d2=list(weight_d2.values())
+        list_weight_d3=list(weight_d3.values())
+        list_weight_d4=list(weight_d4.values())
+        list_weight_d5=list(weight_d5.values())
+
+        wd1=0
+        wx1=0
+        wy1=0
+
+        for i in range(len(idf_dic)):
+            wd1 += list_weight_d0[i] * list_weight_d1[i]
+            wx1 +=math.pow(list_weight_d0[i],2)
+            wy1 +=math.pow(list_weight_d1[i],2)
+
+        wxy1=math.sqrt(wx1*wy1)
+        try:wc1=wd1/wxy1
+        except Exception: wc1=0
+
+        wd2=0
+        wx2=0
+        wy2=0
+        for i in range(len(idf_dic)):
+            wd2 += list_weight_d0[i] * list_weight_d2[i]
+            wx2 +=math.pow(list_weight_d0[i],2)
+            wy2 +=math.pow(list_weight_d2[i],2)
+        wxy2=math.sqrt(wx2*wy2)
+        try:wc2=wd2/wxy2
+        except ZeroDivisionError: wc2=0
+
+        wd3=0
+        wx3=0
+        wy3=0
+        for i in range(len(idf_dic)):
+            wd3 += list_weight_d0[i] * list_weight_d3[i]
+            wx3 +=math.pow(list_weight_d0[i],2)
+            wy3 +=math.pow(list_weight_d3[i],2)
+        wxy3=math.sqrt(wx3*wy3)
+        try:wc3=wd3/wxy3
+        except ZeroDivisionError: wc3=0
+
+        wd4=0
+        wx4=0
+        wy4=0
+        for i in range(len(idf_dic)):
+            wd4 += list_weight_d0[i] * list_weight_d4[i]
+            wx4 +=math.pow(list_weight_d0[i],2)
+            wy4 +=math.pow(list_weight_d4[i],2)
+        wxy4=math.sqrt(wx4*wy4)
+        try:wc4=wd4/wxy4
+        except ZeroDivisionError: wc4=0
+
+        wd5=0
+        wx5=0
+        wy5=0
+        for i in range(len(idf_dic)):
+            wd5 += list_weight_d0[i] * list_weight_d5[i]
+            wx5 +=math.pow(list_weight_d0[i],2)
+            wy5 +=math.pow(list_weight_d5[i],2)
+        wxy5=math.sqrt(wx5*wy5)
+        try:wc5=wd5/wxy5
+        except ZeroDivisionError: wc5=0
+
+        result_cos=[['1.txt',wc1],
+                    ['2.txt',wc2],
+                    ['3.txt',wc3],
+                    ['4.txt',wc4],
+                    ['5.txt',wc5],]
+
+
+        result_cos.sort(key=lambda x:x[1],reverse=True)
+
+        ax=result_cos[0][0]
+        ay=result_cos[0][1]
+        bx=result_cos[1][0]
+        by=result_cos[1][1]
+        cx=result_cos[2][0]
+        cy=result_cos[2][1]
+        dx=result_cos[3][0]
+        dy=result_cos[3][1]
+        ex=result_cos[4][0]
+        ey=result_cos[4][1]
+
+        ######################################################
+        ###### _new project_
+        ######################################################
+
+        rfile1 = open("1.txt")
+        rfile2 = open("2.txt")
+        rfile3 = open("3.txt")
+        rfile4 = open("4.txt")
+        rfile5 = open("5.txt")
+
+        ## know links
+
+        link1,link2,link3,link4,link5={},{},{},{},{}
+
+        for word in rfile1.read().split():
+            if word == '1' or word == '2' or word == '3' or word == '4' or word == '5':
+                if word not in link1 : link1[word] = 1
+
+        for word in rfile2.read().split():
+            if word == '1' or word == '2' or word == '3' or word == '4' or word == '5':
+                if word not in link2: link2[word] = 1
+
+        for word in rfile3.read().split():
+            if word == '1' or word == '2' or word == '3' or word == '4' or word == '5':
+                if word not in link3: link3[word] = 1
+
+        for word in rfile4.read().split():
+            if word == '1' or word == '2' or word == '3' or word == '4' or word == '5':
+                if word not in link4: link4[word] = 1
+
+        for word in rfile5.read().split():
+            if word == '1' or word == '2' or word == '3' or word == '4' or word == '5':
+                if word not in link5: link5[word] = 1
+
+
+        ## A matrix
+
+        A_matrix=[[0,0,0,0,0]]
+
+        for i in range(1) :
+            n1,n2,n3,n4,n5=0,0,0,0,0
+            if '2' in link1 : n2=1
+            if '3' in link1 : n3=1
+            if '4' in link1 : n4=1
+            if '5' in link1 : n5=1
+            e1=[n1,n2,n3,n4,n5]
+            A_matrix.append([n1,n2,n3,n4,n5])
+
+        for i in range(1) :
+            n1,n2,n3,n4,n5=0,0,0,0,0
+            if '1' in link2 : n1=1
+            if '3' in link2 : n3=1
+            if '4' in link2 : n4=1
+            if '5' in link2 : n5=1
+            e2 = [n1, n2, n3, n4, n5]
+            A_matrix.append([n1,n2,n3,n4,n5])
+
+        for i in range(1) :
+            n1,n2,n3,n4,n5=0,0,0,0,0
+            if '1' in link3 : n1=1
+            if '2' in link3 : n2=1
+            if '4' in link3 : n4=1
+            if '5' in link3 : n5=1
+            e3 = [n1, n2, n3, n4, n5]
+            A_matrix.append([n1,n2,n3,n4,n5])
+
+        for i in range(1):
+            n1, n2, n3, n4, n5 = 0, 0, 0, 0, 0
+            if '1' in link4: n1 = 1
+            if '2' in link4: n2 = 1
+            if '3' in link4: n3 = 1
+            if '5' in link4: n5 = 1
+            e4 = [n1, n2, n3, n4, n5]
+            A_matrix.append([n1, n2, n3, n4, n5])
+
+        for i in range(1):
+            n1, n2, n3, n4, n5 = 0, 0, 0, 0, 0
+            if '1' in link5: n1 = 1
+            if '2' in link5: n2 = 1
+            if '3' in link5: n3 = 1
+            if '4' in link5: n4 = 1
+            e5 = [n1, n2, n3, n4, n5]
+            A_matrix.append([n1, n2, n3, n4, n5])
+
+        del A_matrix[0]
+
+        ##Calc the equations
+
+        e11= np.array(e1)
+        e12= np.array(e2)
+        e13= np.array(e3)
+        e14= np.array(e4)
+        e15= np.array(e5)
+
+        A=np.array([e11,e12,e13,e14,e15])
+        AT=A.transpose()
+
+        h=([1.0,1.0,1.0,1.0,1.0])
+        a=([1.0,1.0,1.0,1.0,1.0])
+
+        for i in range (20):
+            a=np.dot(AT, h)
+            ca=math.sqrt(math.pow(a[0],2)+math.pow(a[1],2)+math.pow(a[2],2)+math.pow(a[3],2)+math.pow(a[4],2))
+            for j in range(5): a[j]= a[j] / ca
+
+            h = np.dot(A, a)
+            ch1 = math.sqrt(math.pow(h[0], 2) + math.pow(h[1], 2) + math.pow(h[2], 2) + math.pow(h[3], 2) + math.pow(h[4], 2))
+            for j in range(5): h[j] = h[j] /ch1
+
+        auth=[['1.txt',a[0]],
+               ['2.txt',a[1]],
+               ['3.txt',a[2]],
+               ['4.txt',a[3]],
+               ['5.txt',a[4]],]
+
+        hubs=[['1.txt',h[0]],
+               ['2.txt',h[1]],
+               ['3.txt',h[2]],
+               ['4.txt',h[3]],
+               ['5.txt',h[4]],]
+
+        auth.sort(key=lambda x:x[1],reverse=True)
+        hubs.sort(key=lambda x:x[1])
+
+        aa1 = auth[0][0]
+        ab1 = auth[0][1]
+        ba1 = auth[1][0]
+        bb1 = auth[1][1]
+        ca1 = auth[2][0]
+        cb1 = auth[2][1]
+        da1 = auth[3][0]
+        db1 = auth[3][1]
+        ea1 = auth[4][0]
+        eb1 = auth[4][1]
+
+        print(ab1)
+        print(bb1)
+        print(cb1)
+        print(db1)
+        print(eb1)
+
+        aa2 = hubs[0][0]
+        ab2 = hubs[0][1]
+        ba2 = hubs[1][0]
+        bb2 = hubs[1][1]
+        ca2 = hubs[2][0]
+        cb2 = hubs[2][1]
+        da2 = hubs[3][0]
+        db2 = hubs[3][1]
+        ea2 = hubs[4][0]
+        eb2 = hubs[4][1]
+
+        zw=':'
+        www1='COS SIMILARITY:'
+        www2='AUTHORITY:'
+        www3='HUBS:'
+
+        return render_template("index2.html", ax=ax, ay=ay, bx=bx, by=by, cx=cx ,cy=cy,
+                               dx=dx,dy=dy,ex=ex,ey=ey,aa1=aa1,ab1=ab1,ba1=ba1,bb1=bb1,
+                               ca1=ca1,cb1=cb1,da1=da1,db1=db1,ea1=ea1,eb1=eb1,aa2=aa2,
+                               ab2=ab2,ba2=ba2,bb2=bb2,ca2=ca2,cb2=cb2,da2=da2,db2=db2,
+                               ea2=ea2,eb2=eb2,zw=zw,www1=www1,www2=www2,www3=www3)
+
+    return render_template("index2.html")

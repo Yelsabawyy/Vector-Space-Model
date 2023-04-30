@@ -1,0 +1,2 @@
+# install requirements.txt to start
+pip install -r requirements.txt

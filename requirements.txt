@@ -1,0 +1,7 @@
+# Using virtualenv
+virtualenv myenv
+source myenv/bin/activate
+
+# Using conda
+conda create --name myenv
+conda activate myenv
